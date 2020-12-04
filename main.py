@@ -12,7 +12,7 @@ FPS = 1
 
 def main():
     run = True
-    sorting = BubbleSort(WIN)
+    sorting = InsertionSort(WIN)
     execute= False
 
     while run:

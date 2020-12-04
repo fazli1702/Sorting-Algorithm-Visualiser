@@ -118,6 +118,36 @@ class BubbleSort(Sort):
 
 
 
+class InsertionSort(Sort):
+    def __init__(self, win):
+        super().__init__(win)
 
+    def sort_lst(self):
+        start_node = self.get_node(0)
+        start_node.set_is_sorted(True)
+
+        for i in range(1, len(self.lst)):
+            curr_node = self.get_node(i)
+            curr_node.set_colour(RED)
+            j = i - 1
+            while j >= 0:
+                self.set_standard_colour()
+                prev_node, new_curr_node = self.get_node(j), self.get_node(j+1)
+                prev_node.set_colour(RED)
+                new_curr_node.set_colour(YELLOW)
+                new_curr_node.set_is_sorted(True)
+                if not curr_node.get_value() < prev_node.get_value():
+                    break
+
+                self.swap(j, j + 1)
+                self.update()
+                pygame.time.delay(100)
+                j -= 1
+
+        self.set_all_colour(GREEN)
+        self.update()
+        pygame.time.delay(3000)
+        sys.exit(0)
+                
 
     
