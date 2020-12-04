@@ -54,6 +54,8 @@ class Sort:
     def __init__(self, win):
         self.lst = []
         self.win = win
+        self.delay = 300
+        self.end_delay = 3000
 
         for i in range(WIDTH // RECT_WIDTH):
             while True:  # don't include any duplicate
@@ -86,6 +88,12 @@ class Sort:
             node.display(self.win, i)
         pygame.display.update()
 
+    def end(self):
+        self.set_all_colour(GREEN)
+        self.update()
+        pygame.time.delay(self.end_delay)
+        sys.exit(0)
+
 
 
 class BubbleSort(Sort):
@@ -105,16 +113,14 @@ class BubbleSort(Sort):
                     self.swap(i, i+1)
 
                 self.update()
-                pygame.time.delay(100)
+                pygame.time.delay(self.delay)
 
             sorted_node = self.get_node(end)
             sorted_node.set_is_sorted(True)
             end -= 1
 
-        self.set_all_colour(GREEN)
-        self.update()
-        pygame.time.delay(3000)
-        sys.exit(0)
+        self.end()
+        
 
 
 
@@ -141,13 +147,41 @@ class InsertionSort(Sort):
 
                 self.swap(j, j + 1)
                 self.update()
-                pygame.time.delay(100)
+                pygame.time.delay(self.delay)
                 j -= 1
 
-        self.set_all_colour(GREEN)
-        self.update()
-        pygame.time.delay(3000)
-        sys.exit(0)
+        self.end()
                 
+
+class SelectionSort(Sort):
+    def __init__(self, win):
+        super().__init__(win)
+
+    def sort_lst(self):
+        for i in range(len(self.lst)):
+            curr_node = self.get_node(i)
+            min_node, min_i = curr_node, i
+
+            for j in range(i+1, len(self.lst)):
+                next_node = self.get_node(j)
+                self.set_standard_colour()
+                curr_node.set_colour(RED)
+                next_node.set_colour(RED)
+                if min_i != i:
+                    min_node.set_colour(YELLOW)
+
+                if min_node.get_value() > next_node.get_value():
+                    min_node, min_i = next_node, j
+
+                self.update()
+                pygame.time.delay(self.delay)
+                
+
+            self.swap(i, min_i)
+            min_node.set_is_sorted(True)
+            self.update()
+            pygame.time.delay(self.delay)
+
+        self.end()
 
     
