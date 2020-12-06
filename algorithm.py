@@ -3,7 +3,6 @@ import sys
 from constant import *
 from random import randint
 
-
 class Node:
     def __init__(self, value):
         self.value = value
@@ -87,12 +86,22 @@ class Sort:
         for i, node in enumerate(self.lst):
             node.display(self.win, i)
         pygame.display.update()
+        pygame.time.delay(self.delay)
 
     def end(self):
         self.set_all_colour(GREEN)
         self.update()
-        pygame.time.delay(self.end_delay)
-        sys.exit(0)
+        print('Press [enter] to quit')
+
+        while True:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    sys.exit(0)
+
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_RETURN:
+                        sys.exit(0)
+        
 
 
 
@@ -101,6 +110,10 @@ class BubbleSort(Sort):
         super().__init__(win)
 
     def sort_lst(self):
+        self.bubble_sort()
+        self.end()
+
+    def bubble_sort(self):
         end = len(self.lst) - 1
         while end != 0:
             for i in range(end):
@@ -113,15 +126,10 @@ class BubbleSort(Sort):
                     self.swap(i, i+1)
 
                 self.update()
-                pygame.time.delay(self.delay)
 
             sorted_node = self.get_node(end)
             sorted_node.set_is_sorted(True)
             end -= 1
-
-        self.end()
-        
-
 
 
 class InsertionSort(Sort):
@@ -129,6 +137,10 @@ class InsertionSort(Sort):
         super().__init__(win)
 
     def sort_lst(self):
+        self.insertion_sort()
+        self.end()
+
+    def insertion_sort(self):
         start_node = self.get_node(0)
         start_node.set_is_sorted(True)
 
@@ -147,17 +159,19 @@ class InsertionSort(Sort):
 
                 self.swap(j, j + 1)
                 self.update()
-                pygame.time.delay(self.delay)
+                
                 j -= 1
 
-        self.end()
-                
 
 class SelectionSort(Sort):
     def __init__(self, win):
         super().__init__(win)
 
     def sort_lst(self):
+        self.selection_sort()
+        self.end()
+
+    def insertion_sort(self):
         for i in range(len(self.lst)):
             curr_node = self.get_node(i)
             min_node, min_i = curr_node, i
@@ -174,14 +188,81 @@ class SelectionSort(Sort):
                     min_node, min_i = next_node, j
 
                 self.update()
-                pygame.time.delay(self.delay)
                 
-
             self.swap(i, min_i)
             min_node.set_is_sorted(True)
             self.update()
             pygame.time.delay(self.delay)
 
+
+class MergeSort(Sort):
+    def __init__(self, win):
+        super().__init__(win)
+
+    def sort_lst(self):
+        self.merge_sort(self.lst)
         self.end()
+
+    def merge_sort(self, lst):
+        pass
+        
+
+
+class QuickSort(Sort):
+    def __init__(self, win):
+        super().__init__(win)
+
+    def sort_lst(self):
+        self.quick_sort(0, len(self.lst) - 1)
+        self.end()
+
+    def quick_sort(self, low, high):
+        if low < high:
+            mid = self.partition(low, high)
+            self.quick_sort(low, mid - 1)
+            self.quick_sort(mid + 1, high)
+
+    def partition(self, low, high):
+        pivot_node = self.lst[low]
+        left_ptr = low + 1
+        right_ptr = high
+        done = False
+
+        while not done:
+            left_node, right_node = self.get_node(left_ptr), self.get_node(right_ptr)
+
+            while left_node.get_value() <= pivot_node.get_value():
+                self.set_standard_colour()
+                left_node.set_colour(RED)
+                pivot_node.set_colour(YELLOW)
+                self.update()
+
+                left_ptr += 1
+                if left_ptr > right_ptr:
+                    break
+                left_node = self.get_node(left_ptr)
+
+            while right_node.get_value() >= pivot_node.get_value():
+                self.set_standard_colour()
+                right_node.set_colour(BLUE)
+                pivot_node.set_colour(YELLOW)
+                self.update()
+
+                right_ptr -= 1
+                if left_ptr > right_ptr:
+                    break
+                right_node = self.get_node(right_ptr)
+
+            if left_ptr > right_ptr:
+                done = True
+
+            else:
+                self.swap(left_ptr, right_ptr)
+
+        self.swap(low, right_ptr)
+
+        return right_ptr
+        
+
 
     
