@@ -200,11 +200,49 @@ class MergeSort(Sort):
         super().__init__(win)
 
     def sort_lst(self):
-        self.merge_sort(self.lst)
+        self.merge_sort(0, len(self.lst) - 1)
         self.end()
 
-    def merge_sort(self, lst):
-        pass
+    def merge_sort(self, low, high):
+        if low < high:
+            mid = (low + high) // 2
+            self.merge_sort(low, mid)
+            self.merge_sort(mid + 1, high)
+
+            self.merge(low, mid, high)
+
+    def merge(self, low, mid, high):
+        low2 = mid + 1
+
+        mid_node = self.get_node(mid)
+        low2_node = self.get_node(low2)
+        if mid_node.get_value() <= low2_node.get_value():
+            return
+
+        while low <= mid and low2 <= high:
+            low_node, low2_node = self.get_node(low), self.get_node(low2)
+
+            self.set_standard_colour()
+            low_node.set_colour(RED)
+            low2_node.set_colour(RED)
+            self.update()
+
+            if low_node.get_value() <= low2_node.get_value():
+                low += 1
+
+            else:
+                value = low2_node.get_value()
+                index = low2
+
+                while index != low:
+                    self.swap(index, index - 1)
+                    index -= 1
+
+                low += 1
+                mid += 1
+                low2 += 1
+
+            
         
 
 
