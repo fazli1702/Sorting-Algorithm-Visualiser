@@ -19,7 +19,7 @@ sorts = [
 def main():
     run = True
     execute = False
-    sort_algo = sorts[3]  # change index to change sorting algorithms
+    sort_algo = sorts[0]  # change index to change sorting algorithms
 
     while run:
         pygame.time.delay(10) # delay refresh

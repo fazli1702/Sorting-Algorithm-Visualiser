@@ -53,7 +53,7 @@ class Sort:
     def __init__(self, win):
         self.lst = []
         self.win = win
-        self.delay = 300
+        self.delay = 100
         self.end_delay = 3000
 
         for i in range(WIDTH // RECT_WIDTH):
@@ -171,7 +171,7 @@ class SelectionSort(Sort):
         self.selection_sort()
         self.end()
 
-    def insertion_sort(self):
+    def selection_sort(self):
         for i in range(len(self.lst)):
             curr_node = self.get_node(i)
             min_node, min_i = curr_node, i
