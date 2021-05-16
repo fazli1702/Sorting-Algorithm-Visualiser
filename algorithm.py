@@ -81,6 +81,9 @@ class Sort:
         for node in self.lst:
             node.set_colour(colour)
 
+    def set_delay(self, n):
+        self.delay = n
+
     def update(self):
         self.win.fill(BLACK)
         for i, node in enumerate(self.lst):

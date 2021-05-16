@@ -1,6 +1,7 @@
 import pygame
 from constant import *
 from algorithm import *
+from sys import argv
 
 pygame.init()
 
@@ -19,7 +20,6 @@ sorts = [
 def main():
     run = True
     execute = False
-    sort_algo = sorts[0]  # change index to change sorting algorithms
 
     while run:
         pygame.time.delay(10) # delay refresh
@@ -32,14 +32,40 @@ def main():
                     execute = True
 
         if execute:
-            sort_algo.sort_lst()
+            SORT_ALGO.sort_lst()
             execute = False
         else:
-            sort_algo.update()
+            SORT_ALGO.update()
         
     pygame.quit()
 
 
 
 if __name__ == '__main__':
+    SORT_ALGO = None
+
+    if len(argv) > 1:
+        for ele in argv[1:]:
+            ele = ele[1:].lower()  # remove "-"
+
+            if ele.isalpha():  # sort algorithm
+                if ele == 'b':
+                    SORT_ALGO = sorts[0]
+                if ele == 'i':
+                    SORT_ALGO = sorts[1]
+                if ele == 's':
+                    SORT_ALGO = sorts[2]
+                if ele == 'm':
+                    SORT_ALGO = sorts[3]
+                if ele == 'q':
+                    SORT_ALGO = sorts[4]
+
+            if ele.isdigit():  # time delay
+                if not SORT_ALGO:
+                    SORT_ALGO = sorts[0]
+                SORT_ALGO.set_delay(int(ele))
+                    
+    else:
+        SORT_ALGO = sorts[0]
+
     main()

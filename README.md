@@ -22,28 +22,16 @@ Enter space bar to start the visulisation
 Close the window or press enter to close the window
 
 ## Customization
-### Changing sorting algorithm
-main.py, line 11 - 17
+You can change which sorting algorithm to visualise and the speed of the visualisation. Shown below is the default settings
 ```
-sorts = [
-    BubbleSort(WIN), 
-    InsertionSort(WIN), 
-    SelectionSort(WIN),
-    MergeSort(WIN),
-    QuickSort(WIN)
-]
+$ python main.py -b -100
 ```
+### sorting algorithm
+- `-b`  bubble sort
+- `-i`  insertion sort
+- `-s`  selection sort
+- `-m`  merge sort
+- `-q`  quick sort
 
-In order to change the sorting algorithm, change the following line
-main.py, line 22
-```
-sort_algo = sorts[n] # where n is 0 - 5
-```
-
-### Time delay
-To increase the speed of the sort, change the following line  
-algorithm.py, line 56
-```
-self.delay = n
-```
-The smaller the value of n, the faster the visualisation will execute
+### time delay
+`-n` n is an integer (the lower the number, the faster the visualisation)
