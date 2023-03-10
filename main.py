@@ -59,6 +59,25 @@ if __name__ == '__main__':
                     SORT_ALGO = sorts[3]
                 if ele == 'q':
                     SORT_ALGO = sorts[4]
+                if ele == 'h':  # help
+                    print('''
+                    main.py -b -n
+
+                        sorting algorithm
+                        -b  bubble sort
+                        -i  insertion sort
+                        -s  selection sort
+                        -m  merge sort
+                        -q  quick sort
+
+                        time delay
+                        -n  default n = 100
+
+                        Press [SPACE] to start visualisation
+                        Press [ENTER] to close visualisation
+
+                    ''')
+
 
             if ele.isdigit():  # time delay
                 if not SORT_ALGO:

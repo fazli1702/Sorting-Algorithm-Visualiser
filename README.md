@@ -18,8 +18,8 @@ Run main.py
 $ python main.py
 ```
 
-Enter space bar to start the visulisation  
-Close the window or press enter to close the window
+Press [SPACE] to start the visulisation  
+Close the window or press [ENTER] to close the window
 
 ## Customization
 You can change which sorting algorithm to visualise and the speed of the visualisation. Shown below is the default settings
@@ -34,4 +34,4 @@ $ python main.py -b -n
 - `-q`  quick sort
 
 ### time delay
-`-n` n is an integer (the lower the number, the faster the visualisation)
+`-n` n is an integer (default n = 100) (the lower the number, the faster the visualisation)
