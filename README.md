@@ -24,7 +24,7 @@ Close the window or press enter to close the window
 ## Customization
 You can change which sorting algorithm to visualise and the speed of the visualisation. Shown below is the default settings
 ```
-$ python main.py -b -100
+$ python main.py -b -n
 ```
 ### sorting algorithm
 - `-b`  bubble sort
